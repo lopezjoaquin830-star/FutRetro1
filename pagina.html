@@ -1,0 +1,1670 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Fut Retro | Camisetas Importadas</title>
+    <!-- FontAwesome para íconos -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Google Font Font Montserrat/Bebas Neue -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        :root {
+            --primary-green: #0f8b4c;
+            --dark-green: #095930;
+            --bg-dark: #121212;
+            --bg-card: #1e1e1e;
+            --text-light: #ffffff;
+            --text-muted: #b0b0b0;
+            --accent-gold: #f39c12;
+            --whatsapp-color: #25D366;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            padding-bottom: 70px; /* Para no tapar con nav en móvil */
+        }
+
+        h1, h2, h3, .brand-title {
+            font-family: 'Bebas Neue', cursive;
+            letter-spacing: 1px;
+        }
+
+        /* HEADER & NAVIGATION */
+        header {
+            background-color: #000;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            border-bottom: 2px solid var(--primary-green);
+        }
+
+        .nav-container {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .logo-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .logo-box img {
+            height: 45px;
+            border-radius: 5px;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            line-height: 1;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 20px;
+        }
+
+        .nav-links a {
+            color: var(--text-light);
+            text-decoration: none;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: color 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary-green);
+        }
+
+        /* SECCIONES / VISTAS */
+        .page-view {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .page-view.active {
+            display: block;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* SECTOR 1: HERO WELCOME */
+        .hero {
+            background: linear-gradient(rgba(0, 0, 0, 0.75), rgba(0, 0, 0, 0.85)), 
+                        url('https://images.unsplash.com/photo-1508098682722-e99c43a406b2?auto=format&fit=crop&w=1000&q=80') center/cover;
+            text-align: center;
+            padding: 50px 20px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border: 1px solid #333;
+        }
+
+        .hero h1 {
+            font-size: 2.3rem;
+            color: var(--text-light);
+            margin-bottom: 10px;
+        }
+
+        .hero span.price {
+            color: var(--primary-green);
+        }
+
+        .hero p {
+            font-size: 1.1rem;
+            color: var(--accent-gold);
+            font-weight: 600;
+        }
+
+        /* SECTOR 2: POPULARES & FILTROS */
+        .section-title {
+            font-size: 2rem;
+            margin-bottom: 15px;
+            color: var(--text-light);
+            border-left: 4px solid var(--primary-green);
+            padding-left: 10px;
+        }
+
+        /* Categorías / Filtros Horizontal Scroll */
+        .categories-scroll {
+            display: flex;
+            gap: 10px;
+            overflow-x: auto;
+            padding-bottom: 10px;
+            margin-bottom: 20px;
+            scrollbar-width: thin;
+            scrollbar-color: var(--primary-green) var(--bg-card);
+        }
+
+        .cat-btn {
+            background-color: var(--bg-card);
+            color: var(--text-light);
+            border: 1px solid #333;
+            padding: 8px 16px;
+            border-radius: 20px;
+            white-space: nowrap;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .cat-btn.active, .cat-btn:hover {
+            background-color: var(--primary-green);
+            border-color: var(--primary-green);
+        }
+
+        /* GRID CAMISETAS */
+        .grid-shirts {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+
+        @media (min-width: 768px) {
+            .grid-shirts {
+                grid-template-columns: repeat(4, 1fr);
+            }
+        }
+
+        .shirt-card {
+            background-color: var(--bg-card);
+            border-radius: 8px;
+            overflow: hidden;
+            border: 1px solid #2a2a2a;
+            cursor: pointer;
+            transition: transform 0.2s, border-color 0.2s;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .shirt-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--primary-green);
+        }
+
+        .shirt-img {
+            width: 100%;
+            aspect-ratio: 1;
+            object-fit: cover;
+            background-color: #252525;
+        }
+
+        .shirt-info {
+            padding: 12px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
+            justify-content: space-between;
+        }
+
+        .shirt-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .shirt-price {
+            color: var(--primary-green);
+            font-weight: 700;
+            font-size: 1.1rem;
+        }
+
+        /* GALERÍA DE IMÁGENES EN DETALLE */
+        .gallery-thumbnails {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+            overflow-x: auto;
+        }
+
+        .gallery-thumb {
+            width: 60px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 6px;
+            cursor: pointer;
+            border: 2px solid transparent;
+            background-color: #252525;
+            transition: border-color 0.2s;
+        }
+
+        .gallery-thumb.active, .gallery-thumb:hover {
+            border-color: var(--primary-green);
+        }
+
+        /* SECTOR 3: BUSCAR CAMISETA BANNER */
+        .custom-banner {
+            background-color: var(--bg-card);
+            border: 2px dashed var(--primary-green);
+            border-radius: 12px;
+            padding: 30px 20px;
+            text-align: center;
+            margin: 40px 0;
+        }
+
+        .custom-banner h2 {
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .btn-main {
+            background-color: var(--primary-green);
+            color: white;
+            border: none;
+            padding: 12px 28px;
+            font-size: 1rem;
+            font-weight: 700;
+            border-radius: 6px;
+            cursor: pointer;
+            text-transform: uppercase;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: background 0.2s;
+        }
+
+        .btn-main:hover {
+            background-color: var(--dark-green);
+        }
+
+        .btn-wsp {
+            background-color: var(--whatsapp-color);
+            width: 100%;
+            justify-content: center;
+            padding: 15px;
+            font-size: 1.1rem;
+            margin-top: 15px;
+        }
+
+        .btn-wsp:hover {
+            background-color: #1ebd56;
+        }
+
+        /* SECTOR 4: CONTACTO FOOTER */
+        footer {
+            background-color: #0a0a0a;
+            padding: 30px 20px;
+            text-align: center;
+            border-top: 1px solid #222;
+            margin-top: 40px;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 15px;
+        }
+
+        .social-btn {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: white;
+            text-decoration: none;
+            background: #1a1a1a;
+            padding: 10px 18px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            border: 1px solid #333;
+        }
+
+        .social-btn.ig:hover { border-color: #e1306c; color: #e1306c; }
+        .social-btn.wsp:hover { border-color: var(--whatsapp-color); color: var(--whatsapp-color); }
+
+        /* FORMULARIOS Y DETALLES */
+        .form-group {
+            margin-bottom: 18px;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 6px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-muted);
+        }
+
+        .form-control, select, input[type="text"] {
+            width: 100%;
+            padding: 12px;
+            background-color: #252525;
+            border: 1px solid #3e3e3e;
+            color: white;
+            border-radius: 6px;
+            font-size: 0.95rem;
+        }
+
+        .form-control:focus, select:focus, input[type="text"]:focus {
+            outline: none;
+            border-color: var(--primary-green);
+        }
+
+        .alert-box {
+            background-color: rgba(243, 156, 18, 0.15);
+            border: 1px solid var(--accent-gold);
+            color: var(--accent-gold);
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .back-btn {
+            background: none;
+            border: none;
+            color: var(--text-muted);
+            font-size: 1rem;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            margin-bottom: 15px;
+        }
+
+        .hidden { display: none !important; }
+
+        /* NAV MOVIL INFERIOR */
+        @media (max-width: 767px) {
+            .desktop-nav { display: none; }
+            
+            .mobile-bottom-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background-color: #000;
+                display: flex;
+                justify-content: space-around;
+                padding: 10px 0;
+                border-top: 1px solid #222;
+                z-index: 1000;
+            }
+
+            .mobile-nav-item {
+                color: var(--text-muted);
+                text-decoration: none;
+                font-size: 0.75rem;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                gap: 4px;
+            }
+
+            .mobile-nav-item.active {
+                color: var(--primary-green);
+            }
+        }
+
+        @media (min-width: 768px) {
+            .mobile-bottom-nav { display: none; }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <header>
+        <div class="nav-container">
+            <div class="logo-box" onclick="showView('home-view')">
+                <img src="C:/Joaco-Todo/joaco enprendimientos/FutRetro/logos/Logo verde .jpg" alt="Fut Retro Logo" onerror="this.onerror=null; this.src='https://via.placeholder.com/45x45/0f8b4c/ffffff?text=FR';">
+                <div class="brand-title">
+                    <span class="logo-text">FUT RETRO</span>
+                </div>
+            </div>
+            
+            <nav class="desktop-nav">
+                <ul class="nav-links">
+                    <li><a href="#home" onclick="showView('home-view')">Inicio</a></li>
+                    <li><a href="#populares" onclick="showView('home-view'); scrollToSection('populares-section')">Las Más Populares</a></li>
+                    <li><a href="#buscar" onclick="showView('custom-view')">Buscar Camiseta</a></li>
+                    <li><a href="#contacto" onclick="scrollToSection('contacto-section')">Contacto</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- NAVEGACIÓN PRINCIPAL (HOME) -->
+    <main id="home-view" class="page-view active">
+        <!-- SECTOR 1: BIENVENIDA -->
+        <section class="hero">
+            <h1>Elegí la camiseta importada que quieras por <span class="price">$40.000</span></h1>
+            <p><i class="fa-solid fa-star"></i> Agregale el nombre y parche que quieras</p>
+        </section>
+
+        <!-- SECTOR 2: POPULARES -->
+        <section id="populares-section">
+            <h2 class="section-title">Las Más Populares</h2>
+            
+            <!-- Categorías -->
+            <div class="categories-scroll">
+                <button class="cat-btn active" onclick="filterCategory('todas', this)">Todas</button>
+                <button class="cat-btn" onclick="filterCategory('selecciones', this)">Selecciones Nacionales</button>
+                <button class="cat-btn" onclick="filterCategory('arg', this)">Clubes Argentinos</button>
+                <button class="cat-btn" onclick="filterCategory('premier', this)">Premier League</button>
+                <button class="cat-btn" onclick="filterCategory('laliga', this)">La Liga</button>
+                <button class="cat-btn" onclick="filterCategory('seriea', this)">Serie A</button>
+                <button class="cat-btn" onclick="filterCategory('bundesliga', this)">Bundesliga</button>
+                <button class="cat-btn" onclick="filterCategory('ligue1', this)">Ligue 1</button>
+                <button class="cat-btn" onclick="filterCategory('otros', this)">Otros Clubes</button>
+            </div>
+
+            <!-- Grid de Camisetas (10 Huecos de ejemplo) -->
+            <div class="grid-shirts" id="shirts-container">
+                <!-- Se cargan dinámicamente con JavaScript -->
+            </div>
+        </section>
+
+        <!-- SECTOR 3: BUSCAR OTRA CAMISETA BANNER -->
+        <section class="custom-banner">
+            <h2>¿No encontraste tu camiseta?<br><span style="color: var(--primary-green);">No te preocupes, ¡la tenemos igual!</span></h2>
+            <button class="btn-main" onclick="showView('custom-view')">
+                <i class="fa-solid fa-magnifying-glass"></i> Buscar Camiseta
+            </button>
+        </section>
+    </main>
+
+    <!-- SUBPÁGINA: DETALLE DE PUBLICACIÓN ESPECÍFICA -->
+    <div id="detail-view" class="page-view">
+        <button class="back-btn" onclick="window.history.back()"><i class="fa-solid fa-arrow-left"></i> Volver a la tienda</button>
+        
+        <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 20px;">
+            <div>
+                <img id="detail-img" src="" alt="Camiseta" style="width:100%; border-radius:8px; border: 1px solid #333; aspect-ratio:1; object-fit:cover;">
+                <div id="detail-thumbnails" class="gallery-thumbnails">
+                    <!-- Miniaturas dinámicas -->
+                </div>
+            </div>
+            <div>
+                <h2 id="detail-title" style="font-size: 1.8rem; margin-bottom: 5px;"></h2>
+                <p style="color: var(--primary-green); font-weight: bold; font-size: 1.4rem; margin-bottom: 15px;">$40.000</p>
+                
+                <div class="alert-box">
+                    <i class="fa-solid fa-circle-info"></i> Recomendamos elegir un talle más a tu talle normal.
+                </div>
+
+                <!-- Opciones -->
+                <div class="form-group">
+                    <label>Talle:</label>
+                    <select id="detail-size">
+                        <option value="XS">XS</option>
+                        <option value="S">S</option>
+                        <option value="M">M</option>
+                        <option value="L" selected>L</option>
+                        <option value="XL">XL</option>
+                        <option value="XXL">XXL</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>¿Lleva Parche?</label>
+                    <select id="detail-patch-opt" onchange="toggleField('detail-patch-opt', 'detail-patch-input')">
+                        <option value="No">No</option>
+                        <option value="Si">Sí</option>
+                    </select>
+                </div>
+                <div class="form-group hidden" id="detail-patch-input">
+                    <input type="text" id="detail-patch-text" placeholder="Especificá el parche (Ej: Champions League, Mundial)">
+                </div>
+
+                <div class="form-group">
+                    <label>¿Lleva Nombre y Número?</label>
+                    <select id="detail-name-opt" onchange="toggleField('detail-name-opt', 'detail-name-input')">
+                        <option value="No">No</option>
+                        <option value="Si">Sí</option>
+                    </select>
+                </div>
+                <div class="form-group hidden" id="detail-name-input">
+                    <input type="text" id="detail-name-text" placeholder="Especificá Nombre y Número (Ej: Ronaldo #7)">
+                </div>
+
+                <button class="btn-main btn-wsp" onclick="sendProductWsp()">
+                    <i class="fa-brands fa-whatsapp"></i> ELEGIR
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- SUBPÁGINA: BÚSQUEDA PERSONALIZADA (SECTOR 3) -->
+    <div id="custom-view" class="page-view">
+        <button class="back-btn" onclick="window.history.back()"><i class="fa-solid fa-arrow-left"></i> Volver al inicio</button>
+        
+        <h2 class="section-title">Búsqueda Personalizada</h2>
+        <p style="color: var(--text-muted); margin-bottom: 20px;">Completá los datos de la camiseta que estás buscando y consultanos el stock al instante.</p>
+
+        <div style="max-width: 600px; background-color: var(--bg-card); padding: 20px; border-radius: 8px; border: 1px solid #333;">
+            <div class="form-group">
+                <label>Equipo o Selección:</label>
+                <input type="text" id="custom-team" placeholder="Ej: Manchester United, Argentina, etc.">
+            </div>
+
+            <div class="form-group">
+                <label>Año de la camiseta:</label>
+                <input type="text" id="custom-year" placeholder="Ej: 2008">
+            </div>
+
+            <div class="form-group">
+                <label>Tipo de Manga:</label>
+                <select id="custom-sleeve">
+                    <option value="Manga Corta">Manga Corta</option>
+                    <option value="Manga Larga">Manga Larga</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Versión:</label>
+                <select id="custom-version">
+                    <option value="Versión Hincha">Versión Hincha</option>
+                    <option value="Versión Jugador">Versión Jugador</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>Talle:</label>
+                <select id="custom-size">
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L" selected>L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label>¿Lleva Parche?</label>
+                <select id="custom-patch-opt" onchange="toggleField('custom-patch-opt', 'custom-patch-input')">
+                    <option value="No">No</option>
+                    <option value="Si">Sí</option>
+                </select>
+            </div>
+            <div class="form-group hidden" id="custom-patch-input">
+                <input type="text" id="custom-patch-text" placeholder="Especificá qué parche te gustaría">
+            </div>
+
+            <div class="form-group">
+                <label>¿Lleva Nombre y Número?</label>
+                <select id="custom-name-opt" onchange="toggleField('custom-name-opt', 'custom-name-input')">
+                    <option value="No">No</option>
+                    <option value="Si">Sí</option>
+                </select>
+            </div>
+            <div class="form-group hidden" id="custom-name-input">
+                <input type="text" id="custom-name-text" placeholder="Ej: Ronaldo #7">
+            </div>
+
+            <button class="btn-main btn-wsp" onclick="sendCustomWsp()">
+                <i class="fa-brands fa-whatsapp"></i> CONSULTAR DISPONIBILIDAD
+            </button>
+        </div>
+    </div>
+
+    <!-- SECTOR 4: CONTACTO FOOTER -->
+    <footer id="contacto-section">
+        <h3 style="font-size: 1.5rem; color: var(--primary-green);">FUT RETRO</h3>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 5px;">Las mejores camisetas retro e importadas al mejor precio.</p>
+        
+        <div class="social-links">
+            <a href="https://www.instagram.com/ffutretro.arg?igsh=MW82ZzU1MW1zN2FtMA%3D%3D&utm_source=qr" target="_blank" class="social-btn ig">
+                <i class="fa-brands fa-instagram"></i> @ffutretro.arg
+            </a>
+            <a href="https://wa.me/5493516131458" target="_blank" class="social-btn wsp">
+                <i class="fa-brands fa-whatsapp"></i> +54 9 351 6131458
+            </a>
+        </div>
+    </footer>
+
+    <!-- NAVBAR INFERIOR MÓVIL -->
+    <div class="mobile-bottom-nav">
+        <a href="#home" class="mobile-nav-item active" onclick="showView('home-view')">
+            <i class="fa-solid fa-house"></i> Inicio
+        </a>
+        <a href="#populares" class="mobile-nav-item" onclick="showView('home-view'); scrollToSection('populares-section')">
+            <i class="fa-solid fa-fire"></i> Populares
+        </a>
+        <a href="#buscar" class="mobile-nav-item" onclick="showView('custom-view')">
+            <i class="fa-solid fa-magnifying-glass"></i> Buscar
+        </a>
+        <a href="#contacto" class="mobile-nav-item" onclick="scrollToSection('contacto-section')">
+            <i class="fa-solid fa-envelope"></i> Contacto
+        </a>
+    </div>
+
+    <script>
+        const WSP_NUMBER = "5493516131458";
+
+        // ARRAY DE CAMISETAS CON SOPORTE PARA MÚLTIPLES FOTOS (images: [])
+        const products = [
+            { 
+                id: 1, 
+                title: "Argentina Titular 2026", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/arg titular 2026.webp",
+                    "img/selecciones/arg titular 2026 e.webp"
+                ] 
+            },
+            { 
+                id: 10, 
+                title: "Barcelona Titular 2009", 
+                cat: "laliga", 
+                images: [
+                    "img/la liga/imgi_8_b89aa07c_84d64e1e-df05-42de-a4e6-108b6cd7bb4c-1024x1024.jpg", 
+                    "img/la liga/imgi_7_20126268_ed1ee24b-177a-4716-84af-9aee745264b0-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 3, 
+                title: "Manchester United Titular 2008", 
+                cat: "premier", 
+                images: [
+                    "img/premier/d174b9c6241d30bc66143023184960a8-1024x1024.webp",
+                    "img/premier/24213a93-Photoroom-1024x1024.webp",
+                ] 
+            },
+            { 
+                id: 4, 
+                title: "Real Madrid Suplente 2017", 
+                cat: "laliga", 
+                images: [
+                    "img/la liga/Rm 2017.webp", 
+                    "img/la liga/Rm 2017 E.jpg"
+                ] 
+            },
+            { 
+                id: 5, 
+                title: "AC Milan Titular 2007", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/imgi_38_f1d43d1d037c896552a2c7a81f618eec_1024x-1024x1024.jpg",
+                    "img/serie a/13d2faab-Photoroom-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 10, 
+                title: "Barcelona Titular 2011", 
+                cat: "laliga", 
+                images: [
+                    "img/la liga/714236db-1024x1024.jpg", 
+                    "img/la liga/44de63b4-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 6, 
+                title: "Bayern Múnich Titular 2001", 
+                cat: "bundesliga", 
+                images: [
+                    "img/bundesliga/imgi_55_8fc8cb45-1024x1024.jpg",
+                    "img/bundesliga/imgi_122_587fa8b7-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 7, 
+                title: "PSG Suplente 2020", 
+                cat: "ligue1", 
+                images: [
+                    "img/ligue 1/imgi_135_IMG_0260_4dc6703d-ede6-4414-bd28-ff813b95dfb6_1024x1024-1024x1024.jpg",
+                    "img/ligue 1/imgi_77_IMG_0259_e81b89ce-880b-4086-84a1-7e55bd2fe248_540x-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 9, 
+                title: "River Plate Alternativa 1999", 
+                cat: "arg", 
+                images: [
+                    "img/arg/a2586fe7-1024x1024.jpg",
+                    "img/arg/8d9f371a-Photoroom-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 11, 
+                title: "Boca titular 2002", 
+                cat: "arg", 
+                images: [
+                    "img/arg/imgi_61_bocajunior1_57099cc5-4102-4613-96be-ab7cc71fdc87-1-1024x1024.jpg",
+                    "img/arg/38d59825-Photoroom-copie-768x768-1-1.jpg"
+                ] 
+            },
+            { 
+                id: 8, 
+                title: "Corinthians Suplente 2026", 
+                cat: "otros", 
+                images: [
+                    "img/otros/imgi_11_e26c578c61b79035dba09347a3ffbbeb_1024x-1024x1024.jpg",
+                    "img/otros/e027401b-Photoroom-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 12, 
+                title: "Chelsea Titular 2012", 
+                cat: "premier", 
+                images: [
+                    "img/premier/8b50e5fa-1024x1024.jpg",
+                    "img/premier/7eb1eb6f-1024x1024.jpg",
+                ] 
+            },
+            { 
+                id: 13, 
+                title: "Arsenal Titular 2004", 
+                cat: "premier", 
+                images: [
+                    "img/premier/imgi_112_Retro-2002-04-Arsenal-Soccer-Jersey-Home-5-1024x1024.jpg",
+                    "img/premier/imgi_40_Retro-2002-04-Arsenal-Soccer-Jersey-Home-4-1024x1024.webp",
+                ] 
+            },
+            { 
+                id: 14, 
+                title: "Liverpool Titular 2005", 
+                cat: "premier", 
+                images: [
+                    "img/premier/imgi_45_maillot-retro-liverpool-champion-league-finale-2005-Retro-2005-Liverpool-Champions-League-version-home-1-1024x1024.jpg",
+                    "img/premier/imgi_44_maillot-retro-liverpool-champion-league-finale-2005-Retro-2005-Liverpool-Champions-League-version-home-4-1024x1024.jpg",
+                ] 
+            },
+            { 
+                id: 14, 
+                title: "Manchester City Titular 1999", 
+                cat: "premier", 
+                images: [
+                    "img/premier/743ff7df_d96ad35b-155b-428c-8aa7-59caacdbf18f-1024x1024.jpg",
+                    "img/premier/9c898eab_278edff5-b51a-4244-b251-661ffbe3531f-1024x1024.jpg",
+                ] 
+            },
+            { 
+                id: 15, 
+                title: "Manchester City Suplente 2026", 
+                cat: "premier", 
+                images: [
+                    "img/premier/imgi_38_0757588ef34c29e53b9d8187b3a5cab2_1024x-1024x1024.jpg",
+                    "img/premier/imgi_3_af87cc4735d378a0cea3c4fcf7f3cc42_420x-1024x1024.jpg",
+                ] 
+            },
+            { 
+                id: 16, 
+                title: "Manchester City Titular 2026", 
+                cat: "premier", 
+                images: [
+                    "img/premier/imgi_82_ac9f3214-1024x1024.jpg",
+                    "img/premier/c66220ee-Photoroom-1024x1024.jpg",
+                ] 
+            },
+            { 
+                id: 17, 
+                title: "Manchester City Titular 2027", 
+                cat: "premier", 
+                images: [
+                    "img/premier/17aec06a-1-1024x1024.webp",
+                    "img/premier/d464fc44-1024x1024.webp",
+                ] 
+            },
+            { 
+                id: 18, 
+                title: "Liverpool Titular 2005", 
+                cat: "premier", 
+                images: [
+                    "img/premier/imgi_31_0cml0x19-1024x1024.jpg",
+                    "img/premier/imgi_69_d89epmfh-1024x1024.jpg",
+                ] 
+            },
+            { 
+                id: 19, 
+                title: "Liverpool Titular 2026", 
+                cat: "premier", 
+                images: [
+                    "img/premier/fc37cb47-P.webp",
+                    "img/premier/be8b5bbf-Photoroom-1024x1024.jpg",
+                ] 
+            },
+             { 
+                id: 20, 
+                title: "Liverpool Suplente 2027", 
+                cat: "premier", 
+                images: [
+                    "img/premier/86f6eef1-1024x1024.png",
+                    "img/premier/a05c6328-1024x1024.png",
+                ] 
+            },
+            { 
+                id: 21, 
+                title: "Manchester United Titular 2009", 
+                cat: "premier", 
+                images: [
+                    "img/premier/imgi_45_862de393_540x540_02734faf-36ea-40c6-9766-c5d70b6e329e-1024x1024.jpg",
+                    "img/premier/imgi_39_71407a68_720x720_57dcc19a-253a-4b2a-a7e2-b829f4cf97d4-1024x1024.jpg",
+                ] 
+            },
+            { 
+                id: 22, 
+                title: "Manchester United Titular 2027", 
+                cat: "premier", 
+                images: [
+                    "img/premier/imgi_2_6d0e43ad-1b11-4c60-9150-06bcb3e00f38-1000x1000-Dt4tIU0JsLUs65Zi2V2lmQLx8FfKFFzQreok1Say-1024x1024.jpg",
+                    "img/premier/imgi_3_b7efe3c6-ea4c-4a48-9d0b-c7ead59ca051-1000x1000-s1TgBUbgbOrzEQiC9Qgsp6915aC9kUgx9tfeUYEe-1024x1024.jpg",
+                ] 
+            },
+            { 
+                id: 23, 
+                title: "Manchester United Titular 1999", 
+                cat: "premier", 
+                images: [
+                    "img/premier/imgi_31_MC_98_front-1024x1024.jpg",
+                    "img/premier/imgi_3_MC_98_bck-1024x1024.jpg",
+                ] 
+            },
+            { 
+                id: 24, 
+                title: "Manchester United Titular 2004", 
+                cat: "premier", 
+                images: [
+                    "img/premier/imgi_29_MC_02_front-1024x1024.jpg",
+                    "img/premier/imgi_3_MC_02_bck-1024x1024.jpg",
+                ] 
+            },
+            { 
+                id: 25, 
+                title: "Manchester United suplente 2027", 
+                cat: "premier", 
+                images: [
+                    "img/premier/55b96afa6f88276f72f4ebeb-1024x1024.jpg",
+                    "img/premier/5b3eb141b8a69e310ab100a5-1024x1024.jpg",
+                ] 
+            },
+            { 
+                id: 26, 
+                title: "Chelsea Titular 2013", 
+                cat: "premier", 
+                images: [
+                    "img/premier/83da958a-1-1024x1024.jpg",
+                    "img/premier/bce1a238-1024x1024.jpg",
+                ] 
+            },
+            { 
+                id: 27, 
+                title: "Chelsea Titular 2007", 
+                cat: "premier", 
+                images: [
+                    "img/premier/imgi_3_541887662_18015238946785590_7321928569084874482_n-1024x1024.jpg",
+                    "img/premier/7979c5e7-Photoroom-1024x1024.jpg",
+                ] 
+            },
+            { 
+                id: 28, 
+                title: "Chelsea Suplente 2026", 
+                cat: "premier", 
+                images: [
+                    "img/premier/a554e9d3-1-1024x1024.jpg",
+                    "img/premier/d0f2ee1d-1024x1024.png",
+                ] 
+            },
+            { 
+                id: 29, 
+                title: "Arsenal Suplente 2026", 
+                cat: "premier", 
+                images: [
+                    "img/premier/28927619-1-1024x1024.jpg",
+                    "img/premier/da886715-1024x1024.webp",
+                ] 
+            },
+            { 
+                id: 29, 
+                title: "Arsenal Suplente 2008", 
+                cat: "premier", 
+                images: [
+                    "img/premier/3a6ce344-1024x1024.jpg",
+                    "img/premier/f7ab048d-Photoroom-1024x1024.png",
+                ] 
+            },
+            { 
+                id: 30, 
+                title: "Real Madrid Titular 2027", 
+                cat: "laliga", 
+                images: [
+                    "img/la liga/68fe54a1.webp", 
+                    "img/la liga/cf89f83d (1).webp"
+                ] 
+            },
+            { 
+                id: 31, 
+                title: "Real Madrid Titular 2001", 
+                cat: "laliga", 
+                images: [
+                    "img/la liga/7b3a6743-1-1024x1024.jpg", 
+                    "img/la liga/bd184e4e-Photoroom-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 31, 
+                title: "Real Madrid Suplente 2026", 
+                cat: "laliga", 
+                images: [
+                    "img/la liga/657331799_122243701532255864_2371679022640873233_n-1-1024x1024.jpg", 
+                    "img/la liga/fb0b0a42-Photoroom-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 31, 
+                title: "Real Madrid Suplente 2002", 
+                cat: "laliga", 
+                images: [
+                    "img/la liga/3fe947217a41c0ee-1024x1024.jpg", 
+                    "img/la liga/790cfbfb3f09485c-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 32, 
+                title: "Barcelona Titular 2027", 
+                cat: "laliga", 
+                images: [
+                    "img/la liga/f7ad81ce-1024x1024.webp", 
+                    "img/la liga/218250fa-1024x1024.webp"
+                ] 
+            },
+            { 
+                id: 33, 
+                title: "Barcelona Suplente 2027", 
+                cat: "laliga", 
+                images: [
+                    "img/la liga/a8cd0569-1024x1024.webp", 
+                    "img/la liga/6ab3854e-1024x1024.webp"
+                ] 
+            },
+            { 
+                id: 34, 
+                title: "Barcelona Suplente 2012", 
+                cat: "laliga", 
+                images: [
+                    "img/la liga/6ddd6f35-1024x1024.jpg", 
+                    "img/la liga/21db9a8e-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 35, 
+                title: "Barcelona Titular 1999", 
+                cat: "laliga", 
+                images: [
+                    "img/la liga/imgi_40_Retro-Barcelona-100th-Anniversary-version-home-2_1-1024x1024.jpg", 
+                    "img/la liga/imgi_50_Retro-Barcelona-100th-Anniversary-version-home-6_1-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 36, 
+                title: "Atlético De Madrid Titular 2026", 
+                cat: "laliga", 
+                images: [
+                    "img/la liga/imgi_7_7e4336130828cc7938070d2335ada27c-1024x1024.jpg", 
+                    "img/la liga/imgi_8_145ad8d3b1c7ee3803237b93ceaa2111-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 37, 
+                title: "PSG Titular 1999", 
+                cat: "ligue1", 
+                images: [
+                    "img/ligue 1/imgi_37_c8049f85-1024x1024 (1).webp",
+                    "img/ligue 1/imgi_95_1b0812af-1024x1024.webp"
+                ] 
+            },
+            { 
+                id: 38, 
+                title: "PSG Suplente 1999", 
+                cat: "ligue1", 
+                images: [
+                    "img/ligue 1/imgi_2_98-99visitante-Photoroom-1024x1024.jpg",
+                    "img/ligue 1/imgi_6_98-99visitant-Photoroom-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 39, 
+                title: "PSG Suplente 2026", 
+                cat: "ligue1", 
+                images: [
+                    "img/ligue 1/f53ab01c986b90987e7fbded-Photoroom-1-copie-768x768-1.webp",
+                    "img/ligue 1/f53ab01c986b90987e7fbded-Photoroom-1-copie-2-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 40, 
+                title: "PSG Titular 2027", 
+                cat: "ligue1", 
+                images: [
+                    "img/ligue 1/ed0a29ef-1024x1024.webp",
+                    "img/ligue 1/226be422-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 41, 
+                title: "Inter De Milan Titular 2009", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/imgi_41_in_08_f-1024x1024.jpg",
+                    "img/serie a/9a92387a-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 42, 
+                title: "Inter De Milan Titular 2027", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/imgi_273_maillot-inter-milan-domicile-version-joueur-2026-2027-manches-longues-832-1024x1024.jpg",
+                    "img/serie a/0f32d55a-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 43, 
+                title: "Inter De Milan Suplente 2027", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/42cdb1b08ee1a1edc615edf2-1024x1024.jpg",
+                    "img/serie a/4c4b1df95bb080d1849b360c-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 44, 
+                title: "AC Milan Suplente 2007", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/imgi_166_Camiseta_Retro_AC_Mil_n_Visitante_2006-07-1024x1024.jpg",
+                    "img/serie a/imgi_50_Camiseta_Clasica_AC_Milan_Visitante_2006-07_1-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 45, 
+                title: "AC Milan Titular 2010", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/imgi_181_Camiseta_Retro_AC_Mil_n_2009-10-1024x1024.jpg",
+                    "img/serie a/imgi_57_Retro-0910-AC-Milan-home-6-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 46, 
+                title: "AC Milan Suplente 2027", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/imgi_274_maillot-milan-ac-exterieur-version-joueur-2026-2027-vetements-de-sport-401-1024x1024.jpg",
+                    "img/serie a/imgi_284_maillot-milan-ac-exterieur-version-joueur-2026-2027-vetements-de-sport-741-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 48, 
+                title: "AC Milan Titular 2027", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/imgi_275_milan-ac-domicile-version-joueur-2026-2027-vetements-de-sport-851-1024x1024.jpg",
+                    "img/serie a/imgi_283_milan-ac-domicile-version-joueur-2026-2027-vetements-de-sport-868-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 49, 
+                title: "AC Milan Titular 1994", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/imgi_42_Camiseta_Retro_AC_Mil_n_1993-94-1024x1024.jpg",
+                    "img/serie a/imgi_51_Retro-9394-AC-Milan-home-3-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 46, 
+                title: "AC Milan Suplente 2026", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/imgi_41_m_24V_f_7634e56d-0b50-47fd-a11c-ed932403b652-1024x1024.jpg",
+                    "img/serie a/imgi_50_m_24V_b2_190ed13e-65b3-4d67-ac8c-4866fa0808df-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 47, 
+                title: "Juventus Suplente 2026", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/imgi_3_595f1a82_png-1024x1024.jpg",
+                    "img/serie a/imgi_4_c2cf7cc2-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 48, 
+                title: "Juventus Titular 2027", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/e567bbfddf8dd17c47ccb4bf-1024x1024.jpg",
+                    "img/serie a/c8a8019a4c86da86e6243d96-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 49, 
+                title: "Juventus Suplente 1997", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/Juventus-Maillot-Exterieur-Retro-1995_96-1024x1024.jpg",
+                    "img/serie a/e2758d95-Photoroom-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 50, 
+                title: "Napoli Titular 2026", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/00d74cfe-1024x1024.png",
+                    "img/serie a/5f34b165-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 51, 
+                title: "Napoli Suplente 2026", 
+                cat: "seriea", 
+                images: [
+                    "img/serie a/2f771fcc-1024x1024.png",
+                    "img/serie a/40760b84-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 52, 
+                title: "Bayern Múnich Titular 2027", 
+                cat: "bundesliga", 
+                images: [
+                    "img/bundesliga/imgi_1_HIDm0P-awAA0bbp-1024x1024 (1).jpg",
+                    "img/bundesliga/e5eae78b-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 53, 
+                title: "Bayern Múnich Suplente 2027", 
+                cat: "bundesliga", 
+                images: [
+                    "img/bundesliga/ffa5ea43b0dac7f2a7863f17-1024x1024.jpg",
+                    "img/bundesliga/391cb366c2deca01-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 54, 
+                title: "Bayern Múnich Titular 2006", 
+                cat: "bundesliga", 
+                images: [
+                    "img/bundesliga/imgi_30_1000033501-977e53defb69bcaafe17502235483061-1024-1024-1024x1024.jpg",
+                    "img/bundesliga/337f0f60-Photoroom-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 55, 
+                title: "Bayern Múnich Titular 2001", 
+                cat: "bundesliga", 
+                images: [
+                    "img/bundesliga/imgi_2_d7a32df2_aa5f1ac6-2b59-43b7-9643-09156fae1c6e-1024x1024.jpg",
+                    "img/bundesliga/imgi_3_5b8b9ca0_de4880b1-5725-4f32-af81-1e1981269887-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 56, 
+                title: "Borussia Dortmund Titular 2027", 
+                cat: "bundesliga", 
+                images: [
+                    "img/bundesliga/imgi_2_borussia-dortmund-player-version-local-26-27-1024x1024.jpg",
+                    "img/bundesliga/imgi_15_borussia-dortmund-player-version-local-26-27-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 57, 
+                title: "Borussia Dortmund Suplente 1997", 
+                cat: "bundesliga", 
+                images: [
+                    "img/bundesliga/imgi_2_ed0a8cb24ed2279f1806456641b22719-1024x1024.jpg",
+                    "img/bundesliga/8c42dbe8-Photoroom-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 58, 
+                title: "Ajax Titular 2026", 
+                cat: "otros", 
+                images: [
+                    "img/otros/da16d3d4808f23c816062519-1024x1024.jpg",
+                    "img/otros/db9b39b6fcb6f88e-1024x1024 (1).jpg"
+                ] 
+            },
+            { 
+                id: 59, 
+                title: "Ajax Suplente 2026", 
+                cat: "otros", 
+                images: [
+                    "img/otros/991d1455-1024x1024.png",
+                    "img/otros/95213a18-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 60, 
+                title: "Inter Miami Titular 2026", 
+                cat: "otros", 
+                images: [
+                    "img/otros/Inter-Miami-Maillot-Domicile-1024x1024.jpg",
+                    "img/otros/2b44096be2156023-Photoroom-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 61, 
+                title: "Inter Miami Suplente 2026", 
+                cat: "otros", 
+                images: [
+                    "img/otros/imgi_3_Inter-miami-away-25-26-messi-jersey-1024x1024.jpg",
+                    "img/otros/imgi_7_Inter-miami-away-25-26-messi-jersey-10-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 62, 
+                title: "Botafogo Titular 2027", 
+                cat: "otros", 
+                images: [
+                    "img/otros/08d92b0648e3afa4a9f1698d-1024x1024.jpg",
+                    "img/otros/14d3d7824963395cc4b0d143-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 63, 
+                title: "Vasco Da Gama Titular 2027", 
+                cat: "otros", 
+                images: [
+                    "img/otros/imgi_15_camisa-vasco-i-26-27-jogador-nike-masculina-preta-12bbf6fb33044e14ad17731725266284-1024-1024-1024x1024.jpg",
+                    "img/otros/b20ba4c1-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 64, 
+                title: "River titular 2027", 
+                cat: "arg", 
+                images: [
+                    "img/arg/24d296c82811c4811f5f17d1-1024x1024.jpg",
+                    "img/arg/9744b367f4c1d3722998b48b-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 65, 
+                title: "Boca Jr Titular 2026", 
+                cat: "arg", 
+                images: [
+                    "img/arg/imgi_75_ors-Home-_-2-1024x1024.jpg",
+                    "img/arg/imgi_5_ors-Home-_-5-768x768-1-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 66, 
+                title: "Argentina Suplente 2026", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_274_maillot-argentine-coupe-du-monde-2026-exterieur-patch-champions-565-1024x1024.jpg",
+                    "img/selecciones/imgi_280_maillot-argentine-coupe-du-monde-2026-exterieur-patch-champions-564-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 68, 
+                title: "España Titular 2026", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_59_MAILLOT-ESPAGNE-DOMICILE-CDM-2026-2027-Version-Player-YamaKits-Foot-127944712-1-1024x1024.jpg",
+                    "img/selecciones/e9c7f3c0-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 67, 
+                title: "España Suplente 2026", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_36_6c705abc_79b748c5-f0d4-48fe-8006-7f1d411b64d0-1024x1024.jpg",
+                    "img/selecciones/e8903cdc-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 69, 
+                title: "Inglaterra Titular 2026", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_154_62df0c0b-1024x1024.jpg",
+                    "img/selecciones/imgi_162_c2b9daf9-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 70, 
+                title: "Inglaterra Suplente 2026", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_276_maillot-angleterre-coupe-du-monde-2026-exterieur-version-joueur-738-1024x1024.jpg",
+                    "img/selecciones/imgi_285_maillot-angleterre-coupe-du-monde-2026-exterieur-version-joueur-105-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 71, 
+                title: "Francia Titular 2026", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/9d387990-1024x1024.webp",
+                    "img/selecciones/2c394c7c-1024x1024.webp"
+                ] 
+            },
+            { 
+                id: 72, 
+                title: "Francia Suplente 2026", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/94edf818-1024x1024.webp",
+                    "img/selecciones/46737dd9-1024x1024.webp"
+                ] 
+            },
+            { 
+                id: 73, 
+                title: "Noruega Titular 2026", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_2_d35a35ca-1024x1024.jpg",
+                    "img/selecciones/c71d785b-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 74, 
+                title: "Noruega Suplente 2026", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/a2fb67ad0f35cc809dc145c3-1024x1024.webp",
+                    "img/selecciones/37dd858e3684a447-1024x1024.webp"
+                ] 
+            },
+            { 
+                id: 75, 
+                title: "Alemania Titular 2026", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_4_3ba5d2c1-1024x1024.jpg",
+                    "img/selecciones/imgi_5_76c54a42-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 76, 
+                title: "Portugal Titular 2026", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/fdb47fde-1024x1024.png",
+                    "img/selecciones/a9b770d4-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 77, 
+                title: "Noruega Titular 2026", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_4_Maillot-de-foot-Colombie-domicile-2026-coupe-du-monde-fuite-1024x1024.jpg",
+                    "img/selecciones/c15e9809-1024x1024.png"
+                ] 
+            },
+            { 
+                id: 78, 
+                title: "Brasil Titular 2002", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_42_camiretroBrasil2002-7-1024x1024.jpg",
+                    "img/selecciones/imgi_3_camiretroBrasil2002-8-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 79, 
+                title: "Brasil Titular 1998", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_40_Br_98_9-1024x1024.webp",
+                    "img/selecciones/imgi_51_Br_98_1-1024x1024.webp"
+                ] 
+            },
+            { 
+                id: 80, 
+                title: "Argentina Suplente 1994", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_46_Arg_94v-10-1024x1024.jpg",
+                    "img/selecciones/imgi_3_Arg_94v-1-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 81, 
+                title: "Argentina Titular 2006", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_31_Arg_06_10-1024x1024.jpg",
+                    "img/selecciones/imgi_3_Arg_06_1-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 82, 
+                title: "Argentina Suplente 2006", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_42_Arg_06v_9-1024x1024.jpg",
+                    "img/selecciones/imgi_3_Arg_06v_1-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 83, 
+                title: "Argentina Suplente 1998", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_38_Arg_98v_5-1024x1024.jpg",
+                    "img/selecciones/imgi_3_Arg_98v_6-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 84, 
+                title: "Argentina Titular 1998", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_2_Arg_98_11-1024x1024.jpg",
+                    "img/selecciones/imgi_3_Arg_98_1-1024x1024.jpg"
+                ] 
+            },
+            { 
+                id: 85, 
+                title: "Argentina Titular 1996", 
+                cat: "selecciones", 
+                images: [
+                    "img/selecciones/imgi_41_Argentina_1996-1024x1024.jpg",
+                    "img/selecciones/imgi_3_Argentina_1996_1-1024x1024.jpg"
+                ] 
+            },
+
+        ];
+
+        let selectedProduct = null;
+
+        // Renderizar las camisetas
+        function renderShirts(items) {
+            const container = document.getElementById('shirts-container');
+            container.innerHTML = '';
+            
+            items.forEach(prod => {
+                const coverImg = (prod.images && prod.images.length > 0) ? prod.images[0] : '';
+                const card = document.createElement('div');
+                card.className = 'shirt-card';
+                card.onclick = () => openProductDetail(prod);
+                card.innerHTML = `
+                    <img src="${coverImg}" alt="${prod.title}" class="shirt-img" onerror="this.src='https://via.placeholder.com/300x300/252525/ffffff?text=Camiseta'">
+                    <div class="shirt-info">
+                        <div class="shirt-title">${prod.title}</div>
+                        <div class="shirt-price">$40.000</div>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        }
+
+        // Filtrar por categoría
+        function filterCategory(cat, btn) {
+            document.querySelectorAll('.cat-btn').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            if (cat === 'todas') {
+                renderShirts(products);
+            } else {
+                const filtered = products.filter(p => p.cat === cat);
+                renderShirts(filtered);
+            }
+        }
+
+        // Navegación entre Vistas / Subpáginas con Historial del Navegador
+        function showView(viewId, pushState = true) {
+            document.querySelectorAll('.page-view').forEach(view => view.classList.remove('active'));
+            document.getElementById(viewId).classList.add('active');
+            window.scrollTo(0, 0);
+
+            if (pushState) {
+                history.pushState({ viewId: viewId, productId: selectedProduct ? selectedProduct.id : null }, '', '#' + viewId);
+            }
+        }
+
+        // Soporte para botón "Atrás" / "Adelante" de Chrome
+        window.onpopstate = function(event) {
+            if (event.state && event.state.viewId) {
+                if (event.state.productId) {
+                    const prod = products.find(p => p.id === event.state.productId);
+                    if (prod) selectedProduct = prod;
+                }
+                showView(event.state.viewId, false);
+            } else {
+                showView('home-view', false);
+            }
+        };
+
+        function scrollToSection(sectionId) {
+            const element = document.getElementById(sectionId);
+            if (element) {
+                element.scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Mostrar / Ocultar campos condicionales
+        function toggleField(selectId, targetId) {
+            const selectVal = document.getElementById(selectId).value;
+            const target = document.getElementById(targetId);
+            if (selectVal === 'Si') {
+                target.classList.remove('hidden');
+            } else {
+                target.classList.add('hidden');
+            }
+        }
+
+        // Cambiar imagen principal desde la miniatura
+        function setMainImage(src, element) {
+            document.getElementById('detail-img').src = src;
+            document.querySelectorAll('.gallery-thumb').forEach(t => t.classList.remove('active'));
+            if(element) element.classList.add('active');
+        }
+
+        // Abrir Subpágina de Camiseta Específica
+        function openProductDetail(product) {
+            selectedProduct = product;
+            document.getElementById('detail-title').innerText = product.title;
+            
+            const mainImgSrc = (product.images && product.images.length > 0) ? product.images[0] : '';
+            const detailImg = document.getElementById('detail-img');
+            detailImg.src = mainImgSrc;
+            detailImg.onerror = () => { detailImg.src = 'https://via.placeholder.com/500x500/252525/ffffff?text=Camiseta'; };
+
+            // Renderizar miniaturas si hay más de una foto
+            const thumbContainer = document.getElementById('detail-thumbnails');
+            thumbContainer.innerHTML = '';
+            
+            if (product.images && product.images.length > 1) {
+                product.images.forEach((imgUrl, idx) => {
+                    const thumb = document.createElement('img');
+                    thumb.src = imgUrl;
+                    thumb.className = `gallery-thumb ${idx === 0 ? 'active' : ''}`;
+                    thumb.onerror = () => { thumb.src = 'https://via.placeholder.com/60x60/252525/ffffff?text=Foto'; };
+                    thumb.onclick = () => setMainImage(imgUrl, thumb);
+                    thumbContainer.appendChild(thumb);
+                });
+            }
+            
+            // Reset campos
+            document.getElementById('detail-size').value = "L";
+            document.getElementById('detail-patch-opt').value = "No";
+            document.getElementById('detail-patch-input').classList.add('hidden');
+            document.getElementById('detail-patch-text').value = "";
+            document.getElementById('detail-name-opt').value = "No";
+            document.getElementById('detail-name-input').classList.add('hidden');
+            document.getElementById('detail-name-text').value = "";
+
+            showView('detail-view');
+        }
+
+        // Enviar pedido por WhatsApp (Sector 2)
+        function sendProductWsp() {
+            const size = document.getElementById('detail-size').value;
+            const hasPatch = document.getElementById('detail-patch-opt').value;
+            const patchText = document.getElementById('detail-patch-text').value;
+            const hasName = document.getElementById('detail-name-opt').value;
+            const nameText = document.getElementById('detail-name-text').value;
+
+            let patchInfo = hasPatch === 'Si' ? `Con Parche (${patchText || 'A especificar'})` : 'Sin Parche';
+            let nameInfo = hasName === 'Si' ? (nameText || 'A especificar') : 'Sin Nombre y Número';
+
+            // Formato del mensaje: Manchester United Titular 2008 / Talle L / Sin Parche / Ronaldo #7
+            const text = `Hola! Quiero encargar la siguiente camiseta:\n\n*${selectedProduct.title}*\nTalle: *${size}*\nParche: *${patchInfo}*\nPersonalización: *${nameInfo}*`;
+
+            const url = `https://wa.me/${WSP_NUMBER}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        // Enviar Búsqueda Personalizada por WhatsApp (Sector 3)
+        function sendCustomWsp() {
+            const team = document.getElementById('custom-team').value;
+            const year = document.getElementById('custom-year').value;
+            const sleeve = document.getElementById('custom-sleeve').value;
+            const version = document.getElementById('custom-version').value;
+            const size = document.getElementById('custom-size').value;
+            
+            const hasPatch = document.getElementById('custom-patch-opt').value;
+            const patchText = document.getElementById('custom-patch-text').value;
+            const hasName = document.getElementById('custom-name-opt').value;
+            const nameText = document.getElementById('custom-name-text').value;
+
+            if(!team) {
+                alert("Por favor ingresá el equipo o selección.");
+                return;
+            }
+
+            let patchInfo = hasPatch === 'Si' ? `Con Parche (${patchText || 'A especificar'})` : 'Sin Parche';
+            let nameInfo = hasName === 'Si' ? (nameText || 'A especificar') : 'Sin Nombre/Número';
+
+            // Formato pedido: Manchester United Titular / Manga Larga / Versión Jugador / 2008 / Talle L / Sin Parche / Ronaldo #7
+            const text = `Hola! Quisiera consultar la disponibilidad de la siguiente camiseta:\n\n*${team}*\nAño: *${year || 'No especificado'}*\n*${sleeve}* / *${version}*\nTalle: *${size}*\nParche: *${patchInfo}*\nPersonalización: *${nameInfo}*`;
+
+            const url = `https://wa.me/${WSP_NUMBER}?text=${encodeURIComponent(text)}`;
+            window.open(url, '_blank');
+        }
+
+        // Inicializar estado del historial y renderizar
+        history.replaceState({ viewId: 'home-view' }, '', '#home-view');
+        renderShirts(products);
+    </script>
+</body>
+</html>
